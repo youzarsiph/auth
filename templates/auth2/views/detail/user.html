@@ -1,0 +1,97 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Users' %}{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:dashboard' %}">
+            {% translate 'Dashboard' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:user_list' %}">
+            {% translate 'Users' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        {{ user|capfirst }}
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="lead fs-1">
+            {{ user.get_full_name|capfirst }}
+        </h1>
+        <div class="d-flex align-items-center gap-4">
+            <a class="btn btn-warning d-flex align-items-center gap-4" href="{% url 'auth2:edit_user' user.id %}">
+                <i class="bi bi-pencil"></i>
+                {% translate 'Edit' %}
+            </a>
+            <a class="btn btn-danger d-flex align-items-center gap-4" href="{% url 'auth2:delete_user' user.id %}">
+                <i class="bi bi-trash"></i>
+                {% translate 'Delete' %}
+            </a>
+        </div>
+    </div>
+    <p class="lead">
+        {{ user|capfirst }}
+        <small class="badge rounded-pill bg-danger">
+            {{ user.is_superuser|yesno:'super user,not super user' }}
+        </small>
+        <small class="badge rounded-pill bg-warning">
+            {{ user.is_staff|yesno:'staff,not staff' }}
+        </small>
+        <small class="badge rounded-pill bg-primary">
+            {{ user.is_active|yesno:'active,not active' }}
+        </small>.
+    </p>
+    <div class="row g-4">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="lead fs-2 mb-0">
+                        {% translate 'Groups' %}
+                    </h2>
+                </div>
+                <div class="card-body lead">
+                    {% translate 'Groups that this user in:' %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for group in user.groups.all %}
+                        <li class="list-group-item">
+                            <a href="{% url 'auth2:group_detail' group.id %}" class="list-group-item-text">
+                                {{ group|capfirst }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">
+                            {% translate 'This user has no group.' %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="lead fs-2 mb-0">
+                        {% translate 'Permissions' %}
+                    </h2>
+                </div>
+                <div class="card-body lead">
+                    {% translate 'Permissions granted to this user:' %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for permission in user.user_permissions.all %}
+                        <li class="list-group-item">
+                            {{ permission }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">
+                            {% translate 'This user has no permission.' %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

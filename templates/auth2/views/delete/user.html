@@ -1,0 +1,34 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Delete user' %}{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:dashboard' %}">
+            {% translate 'Dashboard' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:user_list' %}">
+            {% translate 'Users' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:user_detail' user.id %}">
+            {{ user|capfirst }}
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        {% translate 'Delete' %}
+    </li>
+{% endblock %}
+{% block content %}
+    <h1 class="lead fs-1">
+        {% translate 'Delete User' %}
+    </h1>
+    <p>
+        {% translate 'Are you sure you want to delete this user?' %}
+    </p>
+    {% include 'auth2/includes/utilties/form.html' with form_tag=1 method='post' %}
+    {% url 'auth2:user_list' as url %}
+    {% include 'auth2/includes/utilties/submit.html' with form_id='form' cancel_url=url %}
+{% endblock %}

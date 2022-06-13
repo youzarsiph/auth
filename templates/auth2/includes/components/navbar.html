@@ -1,0 +1,71 @@
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 rounded-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'auth2:index' %}">
+            {% translate 'auth2' %}
+        </a>
+        <button class="navbar-toggler collapsed p-2 rounded-circle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    {% url 'auth2:index' as home %}
+                    <a class="nav-link{% if request.path == home %} active{% endif %}" href="{{ home }}">
+                        <i class="bi bi-house-fill"></i>
+                        {% translate 'Home' %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'auth2:dashboard' as dashboard %}
+                    <a class="nav-link{% if request.path == dashboard %} active{% endif %}" href="{{ dashboard }}">
+                        <i class="bi bi-gear-fill"></i>
+                        {% translate 'Dashbaord' %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'auth2:user_list' as user_list %}
+                    <a class="nav-link{% if request.path == user_list %} active{% endif %}" href="{{ user_list }}">
+                        <i class="bi bi-people-fill"></i>
+                        {% translate 'Users' %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% url 'auth2:group_list' as group_list %}
+                    <a class="nav-link{% if request.path == group_list %} active{% endif %}" href="{{ group_list }}">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        {% translate 'Groups' %}
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'auth2:profile' %}">
+                        <i class="bi bi-person-circle"></i>
+                        {% translate 'Profile' %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/youzarsiph/auth2.git">
+                        <i class="bi bi-github"></i>
+                        {% translate 'Github' %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'auth2:logout' %}">
+                            <i class="bi bi-power"></i>
+                            {% translate 'Log out' %}
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'auth2:login' %}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            {% translate 'Login' %}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,79 @@
+{% extends 'auth2/base/base_site.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Home' %}{% endblock %}
+{% block main %}
+    <div class="container">
+        <h1 class="display-1">
+            {% translate 'auth2' %}
+        </h1>
+        <h3>
+            {% translate 'Ready to use authentication and authorization app.' %}
+        </h3>
+        <p class="lead fs-4">
+            {% blocktranslate %}
+                auth2 is extension of django.contrib.auth app. It's primarily based on class-based views and mixins,
+                there is no space to old-school functions in auth2.
+                It makes easier to manage users and groups by providing easy to use customizable UI. You can use any UI
+                kit that is compatible with Bootstrap 5 to customize the look and feel of auth2.
+            {% endblocktranslate %}
+        </p>
+    </div>
+    <div class="container px-4 py-5">
+        <h2 class="pb-2 border-bottom">
+            {% translate 'Features' %}
+        </h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start gap-4">
+                <div class="bg-light py-2 px-3 rounded-3">
+                    <i class="bi bi-boxes fs-5"></i>
+                </div>
+                <div>
+                    <h2>
+                        {% translate 'Class Based' %}
+                    </h2>
+                    <p>
+                        {% blocktranslate %}
+                            auth2 follows the <abbr title="Don't Repeat Yourself">DRY</abbr> principle, so it's
+                            primarily based on classes and mixins and it uses parts of django.contrib.auth app and adds
+                            its own parts to become a fully fledged app.
+                        {% endblocktranslate %}
+                    </p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start gap-4">
+                <div class="bg-light py-2 px-3 rounded-3">
+                    <i class="bi bi-bootstrap fs-5"></i>
+                </div>
+                <div>
+                    <h2>
+                        {% translate 'Fully responsive' %}
+                    </h2>
+                    <p>
+                        {% blocktranslate %}
+                            auth2 is built using the most popular CSS framework: Bootstrap.
+                        {% endblocktranslate %}
+                    </p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start gap-4">
+                <div class="bg-light py-2 px-3 rounded-3">
+                    <i class="bi bi-plugin fs-3"></i>
+                </div>
+                <div>
+                    <h2>
+                        {% translate 'Reusable' %}
+                    </h2>
+                    <p>
+                        {% blocktranslate %}
+                            auth2 extends django.contrib.auth app to be a standalone app and it can be used in any
+                            project. Shortly, <abbr title="Plug and Play">P&amp;P</abbr>
+                        {% endblocktranslate %}
+                    </p>
+                    <a class="btn btn-dark" href="https://github.com/youzarsiph/auth2#readme">
+                        {% translate 'Get started!' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

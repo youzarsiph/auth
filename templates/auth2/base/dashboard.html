@@ -1,0 +1,82 @@
+{% extends 'auth2/base/base_site.html' %}
+{% load i18n static %}
+{% block body_attrs %}class="overflow-lg-hidden vh-lg-100"{% endblock %}
+{% block main %}
+    <div class="d-flex flex-column flex-lg-row h-100">
+        <div class="col-12 col-lg-3 sidebar ps-1 pe-1 pe-lg-0 pb-1">
+            {% include 'auth2/includes/components/sidebar.html' %}
+        </div>
+        <div class="col-12 col-lg-9 sidebar overflow-y-lg-auto">
+            <div class="container pt-4 pt-lg-0">
+                <nav aria-label="breadcrumb" class="card card-body mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'auth2:index' %}">
+                                {% translate 'Home' %}
+                            </a>
+                        </li>
+                        {% block breadcrumb %}
+                            <li class="breadcrumb-item active">
+                                {% translate 'Dashboard' %}
+                            </li>
+                        {% endblock %}
+                    </ol>
+                </nav>
+                {% if messages %}
+                    {% include 'auth2/includes/components/messages.html' %}
+                {% endif %}
+                {% block content %}
+                    <h1 class="display-1">
+                        {% translate 'Welcome to Dashborad' %}
+                    </h1>
+                    <div class="container px-4 py-5">
+                        <h2 class="pb-2 border-bottom lead fs-1">
+                            {% translate 'Get started' %}
+                        </h2>
+                        <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+                            <div class="col">
+                                <div class="bg-primary bg-gradient mb-4 d-inline-flex px-3 py-2 rounded-3 text-white">
+                                    <i class="bi bi-person fs-2"></i>
+                                </div>
+                                <h2 class="lead fs-2">
+                                    {% translate 'Users' %}
+                                </h2>
+                                <p>
+                                    {% blocktranslate %}
+                                        In some situations you may need to grant a user specific permissions, specific
+                                        permissions allow users to view the content without being added to a group.
+                                    {% endblocktranslate %}
+                                </p>
+                                <a href="{% url 'auth2:user_list' %}"
+                                   class="btn btn-outline-primary d-inline-flex gap-4">
+                                    {% translate 'Get started' %}
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </div>
+                            <div class="feature col">
+                                <div class="bg-dark bg-gradient mb-4 d-inline-flex px-3 py-2 rounded-3 text-white">
+                                    <i class="bi bi-people fs-2"></i>
+                                </div>
+                                <h2 class="lead fs-2">
+                                    {% translate 'Groups' %}
+                                </h2>
+                                <p>
+                                    {% blocktranslate %}
+                                        Groups are an easy way to manage permissions. Rather granting permissions to
+                                        each user, you can simply create a group and grant the permissions to it then
+                                        add the user to this group.
+                                    {% endblocktranslate %}
+                                </p>
+                                <a href="{% url 'auth2:group_list' %}"
+                                   class="btn btn-outline-dark d-inline-flex gap-4">
+                                    {% translate 'Get started' %}
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
