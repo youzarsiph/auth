@@ -1,0 +1,85 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block title %}{{ group|capfirst }} {% translate 'details' %}{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:dashboard' %}">
+            {% translate 'Dashboard' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:group_list' %}">
+            {% translate 'Groups' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        {{ group|capfirst }}
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="lead fs-1">
+            {{ group|capfirst }}
+        </h1>
+        <div class="d-flex align-items-center gap-4">
+            <a class="btn btn-warning d-flex align-items-center gap-4" href="{% url 'auth2:edit_group' group.id %}">
+                <i class="bi bi-pencil"></i>
+                {% translate 'Edit' %}
+            </a>
+            <a class="btn btn-danger d-flex align-items-center gap-4" href="{% url 'auth2:delete_group' group.id %}">
+                <i class="bi bi-trash"></i>
+                {% translate 'Delete' %}
+            </a>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="lead fs-2 mb-0">
+                        {% translate 'Users' %}
+                    </h2>
+                </div>
+                <div class="card-body lead">
+                    {% translate 'Users in this group:' %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for user in group.user_set.all %}
+                        <li class="list-group-item">
+                            <a href="{% url 'auth2:user_detail' user.id %}" class="list-group-item-text">
+                                {{ user|capfirst }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">
+                            {% translate 'This group has no user.' %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="lead fs-2 mb-0">
+                        {% translate 'Permissions' %}
+                    </h2>
+                </div>
+                <div class="card-body lead">
+                    {% translate 'Permissions granted to this group:' %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for permission in group.permissions.all %}
+                        <li class="list-group-item">
+                            {{ permission }}
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">
+                            {% translate 'This group has no permission.' %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% load i18n %}
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg align-items-lg-start h-100 rounded-3">
+    <div class="container flex-lg-column align-items-lg-start h-100 w-100">
+        <button class="navbar-toggler rounded-circle p-2" data-bs-toggle="collapse" data-bs-target="#sidebar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand me-0" href="{% url 'auth2:dashboard' %}">
+            {% translate 'Dashboard' %}
+        </a>
+        <ul class="navbar-nav flex-row flex-lg-column order-lg-last mt-lg-auto w-lg-100">
+            <li class="nav-item px-3 py-1 p-lg-0">
+                {% url 'auth2:profile' as profile %}
+                <a class="nav-link d-flex align-items-center gap-4{% if request.path == profile %} active{% endif %}"
+                   href="{{ profile }}">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="d-none d-lg-inline">
+                        {% translate 'Account' %}
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item d-none d-lg-block">
+                <a class="nav-link d-flex align-items-center gap-4" href="{% url 'auth2:logout' %}">
+                    <i class="bi bi-power"></i>
+                    {% translate 'Log out' %}
+                </a>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse mb-auto align-items-lg-start w-100" id="sidebar">
+            <ul class="navbar-nav flex-lg-column w-100">
+                <li class="nav-item active">
+                    {% url 'auth2:dashboard' as dashboard %}
+                    <a class="nav-link d-flex align-items-center gap-4{% if request.path == dashboard %} active{% endif %}"
+                       href="{{ dashboard }}">
+                        <i class="bi bi-gear-fill"></i>
+                        {% translate 'Home' %}
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex align-items-center gap-4" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-people-fill"></i>
+                        <span>{% translate 'Users' %}</span>
+                    </a>
+                    <div class="dropdown-menu rounded-3 position-lg-static">
+                        <a class="dropdown-item d-flex align-items-center gap-4" href="{% url 'auth2:create_user' %}">
+                            <i class="bi bi-plus-lg"></i>
+                            {% translate 'Create User' %}
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center gap-4" href="{% url 'auth2:user_list' %}">
+                            <i class="bi bi-eye"></i>
+                            {% translate 'View Users' %}
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex align-items-center gap-4" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>{% translate 'Groups' %}</span>
+                    </a>
+                    <div class="dropdown-menu rounded-3 position-lg-static">
+                        <a class="dropdown-item d-flex align-items-center gap-4" href="{% url 'auth2:create_group' %}">
+                            <i class="bi bi-plus-lg"></i>
+                            {% translate 'Create Group' %}
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center gap-4" href="{% url 'auth2:group_list' %}">
+                            <i class="bi bi-eye"></i>
+                            {% translate 'View Groups' %}
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,37 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:dashboard' %}">
+            {% translate 'Dashboard' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        {% block breadcrumb-item %}{% endblock %}
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="card-header bg-white d-flex align-items-center justify-content-between">
+            <h1 class="lead fs-1 mb-0">
+                {% block page_title %}{% endblock %}
+            </h1>
+            <a class="btn btn-primary d-flex align-items-center gap-4" href="{% block create_url %}{% endblock %}">
+                <i class="bi bi-plus-lg"></i>
+                {% translate 'New' %}
+            </a>
+        </div>
+        <div class="table-responsive py-1">
+            {% block table %}{% endblock %}
+        </div>
+        <div class="card-footer bg-white border-top-0 d-flex align-items-center justify-content-between">
+            <div class="text-muted">
+                {# To display the number of the objects in queryset #}
+                {% block count %}{% endblock %}
+            </div>
+            {% if is_paginated %}
+                {% include 'auth2/includes/utilties/pagination.html' with justify='end' %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

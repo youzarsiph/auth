@@ -1,0 +1,34 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Password Reset Done' %}{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:profile' %}">
+            {% translate 'Prfile' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:reset_password' %}">
+            {% translate 'Password Reset' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item active">
+        {% translate 'Done' %}
+    </li>
+{% endblock %}
+{% block content %}
+    <h1 class="display-1">
+        {% translate 'Password reset sent' %}
+    </h1>
+    <p class="lead">
+        {% blocktranslate %}
+            We’ve emailed you instructions for setting your password, if an account exists with the email you
+            entered. You should receive them shortly.
+            If you don’t receive an email, please make sure you’ve entered the address you registered with, and
+            check your spam folder.
+        {% endblocktranslate %}
+    </p>
+    <a href="{% url 'auth2:login' %}" class="btn btn-primary btn-lg" role="button">
+        {% translate 'Login' %}
+    </a>
+{% endblock %}

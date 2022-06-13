@@ -1,0 +1,29 @@
+{% extends 'auth2/base/dashboard.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Password Reset Complete' %}{% endblock %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:profile' %}">
+            {% translate 'Profile' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'auth2:reset_password' %}">
+            {% translate 'Password Reset' %}
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        {% translate 'Complete' %}
+    </li>
+{% endblock %}
+{% block content %}
+    <h1 class="display-1">
+        {% translate 'Password reset complete' %}
+    </h1>
+    <p class="lead">
+        {% translate 'Your password has been set. You may go ahead and log in now.' %}
+    </p>
+    <a class="btn btn-primary btn-lg" role="button" href="{% url 'auth2:login' %}">
+        {% translate 'Login' %}
+    </a>
+{% endblock %}

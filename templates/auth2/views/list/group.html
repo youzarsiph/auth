@@ -1,0 +1,104 @@
+{% extends 'auth2/views/list/generic.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Groups' %}{% endblock %}
+{% block breadcrumb-item %}
+    {% translate 'Groups' %}
+{% endblock %}
+{% block page_title %}
+    {% translate 'Groups' %}
+{% endblock %}
+{% block create_url %}
+    {% url 'auth2:create_group' %}
+{% endblock %}
+{% block table %}
+    {% if group_list %}
+        <table class="table mb-0 text-center">
+            <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    {% translate 'Name' %}
+                </th>
+                <th>
+                    {% translate 'Permissions' %}
+                </th>
+                <th>
+                        <span class="d-lg-none">
+                            {% translate 'Actions' %}
+                        </span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for group in group_list %}
+                <tr>
+                    <td>
+                        {{ group.id }}
+                    </td>
+                    <td>
+                        <a href="{% url 'auth2:group_detail' group.id %}">
+                            {{ group }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if group.permissions.all %}
+                            <div class="dropdown">
+                                <button data-bs-toggle="dropdown" type="button" class="btn btn-sm btn-link">
+                                    {% translate 'View permissions' %}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <ul class="list-group list-group-flush mb-0">
+                                        <li class="list-group-item list-group-item-heading">
+                                            <span class="lead">{% translate 'Group specific permissions' %}</span>
+                                        </li>
+                                        {% for permission in group.permissions.all %}
+                                            <li class="list-group-item">
+                                                {{ permission }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% translate 'This group has no permission' %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:group_detail' group.id %}">
+                                    <i class="bi bi-eye"></i>
+                                    {% translate 'View' %}
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:edit_group' group.id %}">
+                                    <i class="bi bi-pencil"></i>
+                                    {% translate 'Edit' %}
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:delete_group' group.id %}">
+                                    <i class="bi bi-trash"></i>
+                                    {% translate 'Delete' %}
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="card-body lead fs-1 text-center">
+            {% translate 'No groups found.' %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block count %}
+    {{ group_list.count }} {% translate 'Groups' %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{# Base template for structuring the HTML and extending. #}
+{% extends 'auth2/base/base.html' %}
+{% load i18n %}
+{% block header %}
+    {# Navbar here #}
+    {% include 'auth2/includes/components/navbar.html' %}
+{% endblock %}
+{% block main %}
+    {# Content here. #}
+    <div class="container pt-4">
+        {% if messages %}
+            {% include 'auth2/includes/components/messages.html' %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

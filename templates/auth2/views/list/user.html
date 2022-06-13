@@ -1,0 +1,114 @@
+{% extends 'auth2/views/list/generic.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Users' %}{% endblock %}
+{% block breadcrumb-item %}
+    {% translate 'Users' %}
+{% endblock %}
+{% block page_title %}
+    {% translate 'Users' %}
+{% endblock %}
+{% block create_url %}
+    {% url 'auth2:create_user' %}
+{% endblock %}
+{% block table %}
+    {% if user_list %}
+        <table class="table mb-0 text-center">
+            <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    {% translate 'Username' %}
+                </th>
+                <th>
+                    {% translate 'Full name' %}
+                </th>
+                <th>
+                    {% translate 'Email' %}
+                </th>
+                <th>
+                    {% translate 'Last login' %}
+                </th>
+                <th>
+                    {% translate 'Date joined' %}
+                </th>
+                <th>
+                        <span class="d-lg-none">
+                            {% translate 'Actions' %}
+                        </span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in user_list %}
+                <tr>
+                    <td>
+                        {{ user.id }}
+                    </td>
+                    <td>
+                        <a href="{% url 'auth2:user_detail' user.id %}">
+                            {{ user }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if user.get_full_name %}
+                            {{ user.get_full_name }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.last_login %}
+                            {{ user.last_login|timesince }}
+                        {% else %}
+                            {% translate 'Not logged in yet.' %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ user.date_joined|timesince }}
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:user_detail' user.id %}">
+                                    <i class="bi bi-eye"></i>
+                                    {% translate 'View' %}
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:edit_user' user.id %}">
+                                    <i class="bi bi-pencil"></i>
+                                    {% translate 'Edit' %}
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center gap-4"
+                                   href="{% url 'auth2:delete_user' user.id %}">
+                                    <i class="bi bi-trash"></i>
+                                    {% translate 'Delete' %}
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="card-body lead fs-1 text-center">
+            {% translate 'No users found.' %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block count %}
+    {{ user_list.count }} {% translate 'Users' %}
+{% endblock %}

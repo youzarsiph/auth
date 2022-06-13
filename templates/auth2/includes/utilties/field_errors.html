@@ -1,0 +1,8 @@
+{# Display field errors #}
+{% if field.errors %}
+    {% for error in field.errors %}
+        <small class="badge rounded-pill bg-danger">
+            {{ error }}
+        </small>
+    {% endfor %}
+{% endif %}
