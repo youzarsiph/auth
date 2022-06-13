@@ -46,7 +46,7 @@ from django.urls import path, include  # import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('.urls')),  # Add this line
+    path('accounts/', include('auth2.urls')),  # Add this line
 ]
 ```
 
