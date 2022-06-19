@@ -1,10 +1,7 @@
 {% load i18n %}
 {# Include with form_tag=1 #}
 {% if form_tag %}
-    <form {% if method %}method="{{ method }}"{% endif %}
-            {% if action %} action="{{ action }}"{% endif %}
-          {% if id %}id="{{ id }}" {% else %}id="form"{% endif %}
-    >
+    <form method="{{ method|default:'get' }}" action="{{ action|default:request.path }}" id="{{ id|default:'form' }}">
 {% endif %}
 
 {# Included with CSRF_TOKEN #}
@@ -22,7 +19,6 @@
     </ul>
 {% endif %}
 
-{# Form layout #}
 {% for field in form %}
     {% if field.widget_type == 'checkbox' or field.widget_type == 'radio' %}
         {# Checkbox and radio inputs #}
@@ -36,23 +32,19 @@
             {% if field.help_text %}
                 <small class="text-muted">{{ field.help_text }}</small>
             {% endif %}
-            {% if field.errors %}
-                {% include 'auth2/includes/utilties/field_errors.html' %}
-            {% endif %}
+            {% include 'auth2/includes/utilties/field_errors.html' %}
         </div>
     {% else %}
         {# Other types of inputs #}
         {% if floating_labels %}
-            {% if field.widget_type == 'clearablefile' or field.widget_type == 'selectmultiple' %}
+            {% if field.widget_type == 'clearablefile' %}
                 <div class="form-group mb-4">
                     {{ field.label_tag }}
                     {{ field }}
                     {% if field.help_text %}
                         <small class="text-muted">{{ field.help_text|safe }}</small>
                     {% endif %}
-                    {% if field.errors %}
-                        {% include 'auth2/includes/utilties/field_errors.html' %}
-                    {% endif %}
+                    {% include 'auth2/includes/utilties/field_errors.html' %}
                 </div>
             {% else %}
                 <div class="form-floating mb-4">
@@ -61,21 +53,32 @@
                     {% if field.help_text %}
                         <small class="text-muted">{{ field.help_text|safe }}</small>
                     {% endif %}
-                    {% if field.errors %}
-                        {% include 'auth2/includes/utilties/field_errors.html' %}
-                    {% endif %}
+                    {% include 'auth2/includes/utilties/field_errors.html' %}
                 </div>
             {% endif %}
+        {% elif input_groups %}
+            <div class="mb-4">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        {{ field.label_tag }}
+                    </span>
+                    {{ field }}
+                </div>
+                {% if field.help_text %}
+                    <small class="text-muted">{{ field.help_text|safe }}</small>
+                {% endif %}
+                {% include 'auth2/includes/utilties/field_errors.html' %}
+            </div>
         {% else %}
             <div class="form-group mb-4">
-                {{ field.label_tag }}
+                <div class="form-label">
+                    {{ field.label_tag }}
+                </div>
                 {{ field }}
                 {% if field.help_text %}
                     <small class="text-muted">{{ field.help_text|safe }}</small>
                 {% endif %}
-                {% if field.errors %}
-                    {% include 'auth2/includes/utilties/field_errors.html' %}
-                {% endif %}
+                {% include 'auth2/includes/utilties/field_errors.html' %}
             </div>
         {% endif %}
     {% endif %}

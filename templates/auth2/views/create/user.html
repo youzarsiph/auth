@@ -22,5 +22,5 @@
     </h1>
     {% include 'auth2/includes/utilties/form.html' with form_tag=1 method='post' floating_labels=1 %}
     {% url 'auth2:user_list' as url %}
-    {% include 'auth2/includes/utilties/submit.html' with form_id='form' reset=1 cancel_url=url %}
+    {% include 'auth2/includes/utilties/submit.html' with reset=1 cancel_url=url %}
 {% endblock %}

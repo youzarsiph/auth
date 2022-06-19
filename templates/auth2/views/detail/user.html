@@ -18,8 +18,8 @@
 {% endblock %}
 {% block content %}
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="lead fs-1">
-            {{ user.get_full_name|capfirst }}
+        <h1 class="lead fs-1 mb-0">
+            {% firstof user.get_full_name|capfirst user|capfirst  %}
         </h1>
         <div class="d-flex align-items-center gap-4">
             <a class="btn btn-warning d-flex align-items-center gap-4" href="{% url 'auth2:edit_user' user.id %}">
@@ -42,7 +42,7 @@
         </small>
         <small class="badge rounded-pill bg-primary">
             {{ user.is_active|yesno:'active,not active' }}
-        </small>.
+        </small>
     </p>
     <div class="row g-4">
         <div class="col-12 col-lg-6">

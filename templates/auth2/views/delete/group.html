@@ -30,5 +30,5 @@
     </p>
     {% include 'auth2/includes/utilties/form.html' with form_tag=1 method='post' %}
     {% url 'auth2:group_list' as url %}
-    {% include 'auth2/includes/utilties/submit.html' with form_id='form' cancel_url=url %}
+    {% include 'auth2/includes/utilties/submit.html' with cancel_url=url %}
 {% endblock %}
