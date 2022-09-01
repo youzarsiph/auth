@@ -21,6 +21,10 @@ class StyledUserCreationForm(UserCreationForm):
                 field.widget.attrs['class'] = 'form-control'
                 field.widget.attrs['placeholder'] = field.label
 
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email')
+
 
 class GroupCreationForm(StyledModelForm):
     class Meta:
